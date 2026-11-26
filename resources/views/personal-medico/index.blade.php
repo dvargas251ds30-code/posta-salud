@@ -32,7 +32,7 @@
     </form>
  
     <p><a href="{{ route('personal-medico.create') }}" role="button">
-        + Registrar profesional</a></p>
+        + Registrar médico</a></p>
  <table>
         <thead>
             <tr><th>Colegiatura</th><th>Apellidos y nombres</th>
@@ -56,5 +56,5 @@
         </tbody>
     </table>
  
-    {{ $personal->links('pagination::simple-default') }}
+    {{ $personal->links() }}
 @endsection

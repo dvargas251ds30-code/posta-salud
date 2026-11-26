@@ -1,9 +1,9 @@
 @extends('layouts.app')
  
-@section('titulo', 'Editar profesional')
+@section('titulo', 'Editar médico')
  
 @section('contenido')
-    <h1>Editar profesional</h1>
+    <h1>Editar médico</h1>
  
     <form method="POST" novalidate
           action="{{ route('personal-medico.update', $medico) }}">
