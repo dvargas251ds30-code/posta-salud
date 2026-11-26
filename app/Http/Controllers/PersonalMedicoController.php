@@ -109,6 +109,26 @@ public function update(UpdatePersonalMedicoRequest $request,
         ->with('ok', 'Datos del profesional actualizados.');
 }
 
+public function cambiarEstado(PersonalMedico $personalMedico)
+{
+    $personalMedico->update(['activo' => ! $personalMedico->activo]);
+ 
+    if ($personalMedico->activo) {
+        return back()->with('ok', 'Profesional activado.');
+    }
+ 
+    $pendientes = $personalMedico->citas()
+        ->where('fecha_hora', '>=', now())
+        ->whereIn('estado', ['pendiente', 'confirmada'])
+        ->count();
+ 
+    $aviso = 'Profesional desactivado: ya no recibirá nuevas citas (RN04).';
+    if ($pendientes > 0) {
+        $aviso .= " Tiene $pendientes citas próximas por reprogramar.";
+    }
+ 
+    return back()->with('ok', $aviso);
+}
 
     /**
      * Remove the specified resource from storage.
